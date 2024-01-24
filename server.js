@@ -33,10 +33,10 @@ app.use(express.json());
 
 //database connection method
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "attendance_db",
+  host: "bkxugmhtpvkmue780b7b-mysql.services.clever-cloud.com",
+  user: "umq4rnvmf0blsrwg",
+  password: "tmrtbKuTb04OPj6ov2Vl",
+  database: "bkxugmhtpvkmue780b7b",
 })
 
 
