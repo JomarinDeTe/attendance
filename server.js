@@ -99,9 +99,9 @@ app.post('/login', async (req, res) => {
     req.session.user = {
       user_id: user.user_id,
       username: user.username,
-      role: role,
-      student_id: student_id,
-      name: name
+      role: user.role,
+      student_id: user.student_id,
+      name: user.name
     };
     res.json({
       username,
