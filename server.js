@@ -99,11 +99,15 @@ app.post('/login', async (req, res) => {
     req.session.user = {
       user_id: user.user_id,
       username: user.username,
-      role: role
+      role: role,
+      student_id: student_id,
+      name: name
     };
     res.json({
       username,
       role,
+      student_id,
+      name,
       user_id: user.user_id
     });
   } catch (error) {
