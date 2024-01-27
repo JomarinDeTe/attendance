@@ -285,7 +285,7 @@ app.get('/search-student/:studentId', (req, res) => {
 app.post('/insert-student', (req, res) => {
   const { teacher_id, studentId, block, selectedClass } = req.body;
   const sqlCheckStudent = 'SELECT COUNT(*) AS count FROM teachers_students WHERE student_table_id = ? AND class_id = ? ';
-
+  const currentDate = new Date();
  
   db.query(sqlCheckStudent, [studentId, selectedClass], (checkErr, checkResult) => {
     if (checkErr) {
@@ -298,14 +298,14 @@ app.post('/insert-student', (req, res) => {
         res.status(200).json({ status: 200, message: 'Student already exists' });
       } else {
         const sqlInsertStudent = `
-          INSERT INTO teachers_students (teachers_table_id, student_table_id, blocks, class_id)
-          VALUES (?, ?, ?, ?)
+          INSERT INTO teachers_students (teachers_table_id, student_table_id, blocks, class_id,date_added)
+          VALUES (?, ?, ?, ?,?)
         `;
 
         const responses = [];
 
         const processClass = (classId, callback) => {
-          db.query(sqlInsertStudent, [teacher_id, studentId, block, classId], (err, result) => {
+          db.query(sqlInsertStudent, [teacher_id, studentId, block, classId,currentDate], (err, result) => {
             if (err) {
               console.error('Error inserting student:', err);
               responses.push({ status: 500, message: 'Error inserting student' });
