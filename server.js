@@ -121,7 +121,8 @@ app.post('/login', async (req, res) => {
     res.json({
       username,
       role,
-      info: info
+      info: info,
+      user_id: user.user_id
      
     });
   } catch (error) {
