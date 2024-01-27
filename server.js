@@ -87,7 +87,7 @@ const getUserRole = (username) => {
 
 const getUserInfo = (username) => {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM tbl_users WHERE username = ? ';
+    const sql = 'SELECT student_id FROM tbl_users WHERE username = ? ';
     db.query(sql, [username], (error, results) => {
       if (error) {
         reject(error);
