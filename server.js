@@ -92,14 +92,13 @@ const getUserInfo = (username) => {
       if (error) {
         reject(error);
       } else if (results.length > 0) {
-        resolve(results[0].role);
+        resolve(results[0].student_id);
       } else {
         reject('User not found');
       }
     });
   });
 };
-
 // login api sa frontend
 app.post('/login', async (req, res) => {
   const {
@@ -116,7 +115,7 @@ app.post('/login', async (req, res) => {
       user_id: user.user_id,
       username: user.username,
       role: role,
-      info : info
+      info: info
       
     };
     res.json({
