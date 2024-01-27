@@ -475,6 +475,20 @@ app.get('/teacher-subjects', (req, res) => {
     }
   });
 });
+app.get('/student-subjects', (req, res) => {
+  const teacherId = req.query.teacherId;
+
+  const sql = 'SELECT * FROM teachers_subjects t INNER JOIN subjects s ON s.id = t.subject_id WHERE t.student_id = ?';
+
+  db.query(sql, [teacherId], (err, results) => {
+    if (err) {
+      console.error('Error fetching teacher subjects:', err);
+      res.status(500).json({ error: 'Error fetching teacher subjects' });
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 
 //
