@@ -85,6 +85,20 @@ const getUserRole = (username) => {
   });
 };
 
+const getUserInfo = (username) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM tbl_users WHERE username = ? ';
+    db.query(sql, [username], (error, results) => {
+      if (error) {
+        reject(error);
+      } else if (results.length > 0) {
+        resolve(results[0].role);
+      } else {
+        reject('User not found');
+      }
+    });
+  });
+};
 
 // login api sa frontend
 app.post('/login', async (req, res) => {
@@ -96,15 +110,20 @@ app.post('/login', async (req, res) => {
   try {
     const user = await isValidUser(username, password);
     const role = await getUserRole(username);
+    const info = await getUserInfo(username);
+    
     req.session.user = {
       user_id: user.user_id,
       username: user.username,
-      role: role
+      role: role,
+      info : info
+      
     };
     res.json({
       username,
       role,
-      user_id: user.user_id
+      info: info
+     
     });
   } catch (error) {
     res.status(401).json({
